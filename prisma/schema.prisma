@@ -1,0 +1,281 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id                   String    @id @default(uuid())
+  discordId            String    @unique
+  username             String
+  discriminator        String?
+  avatar               String?
+  role                 String    @default("SUPPORT_AGENT") // ADMIN, SUPPORT_LEAD, SUPPORT_AGENT, VIEWER
+  status               String    @default("OFFLINE")       // ONLINE, BUSY, OFFLINE, ON_BREAK
+  activeTicketsCount   Int       @default(0)
+  totalResolvedTickets Int       @default(0)
+  avgRating            Float     @default(5.0)
+  lastActiveAt         DateTime?
+  assignedTickets      Ticket[]  @relation("AssignedTickets")
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([discordId])
+  @@index([role])
+  @@index([status])
+}
+
+model GuildConfig {
+  id                      String   @id @default(uuid())
+  guildId                 String   @unique
+  guildName               String
+  ticketCategoryId        String?
+  transcriptChannelId     String?
+  auditLogChannelId       String?
+  announcementChannelId   String?
+  adminRoleId             String?
+  supportRoleId           String?
+  escalationRoleId        String?
+  maxTicketsPerUser       Int      @default(3)
+  autoCloseHours          Int      @default(48)
+  enableAiSupport         Boolean  @default(true)
+  aiEscalationSensitivity String   @default("NORMAL") // LOW, NORMAL, HIGH
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model TicketCategory {
+  id                String   @id @default(uuid())
+  name              String
+  slug              String   @unique
+  description       String
+  emoji             String?
+  discordCategoryId String?
+  defaultPriority   String   @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  autoAssignStaffId String?
+  isActive          Boolean  @default(true)
+  order             Int      @default(0)
+  tickets           Ticket[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([slug])
+}
+
+model Ticket {
+  id                      String            @id @default(uuid())
+  ticketNumber            Int               @unique
+  title                   String
+  categoryId              String
+  category                TicketCategory    @relation(fields: [categoryId], references: [id])
+  customerDiscordId       String
+  customerUsername        String
+  customerAvatar          String?
+  channelId               String?           @unique
+  status                  String            @default("OPEN") // OPEN, AWAITING_STAFF, STAFF_REPLY, RESOLVED, CLOSED
+  priority                String            @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  assignedStaffId         String?
+  assignedStaff           User?             @relation("AssignedTickets", fields: [assignedStaffId], references: [id])
+  claimedAt               DateTime?
+  resolvedAt              DateTime?
+  closedAt                DateTime?
+  reopenedAt              DateTime?
+  escalationReason        String?
+  escalatedAt             DateTime?
+  resolutionSummary       String?
+  customerFeedbackRating  Int?
+  customerFeedbackComment String?
+  messages                TicketMessage[]
+  internalNotes           TicketNote[]
+  transcript              TicketTranscript?
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+
+  @@index([status])
+  @@index([priority])
+  @@index([customerDiscordId])
+  @@index([assignedStaffId])
+  @@index([createdAt])
+}
+
+model TicketMessage {
+  id               String   @id @default(uuid())
+  ticketId         String
+  ticket           Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  senderDiscordId  String
+  senderUsername   String
+  senderAvatar     String?
+  isStaff          Boolean  @default(false)
+  isBot            Boolean  @default(false)
+  isAi             Boolean  @default(false)
+  content          String
+  attachments      String?  // JSON string
+  discordMessageId String?
+  createdAt        DateTime @default(now())
+
+  @@index([ticketId])
+  @@index([createdAt])
+}
+
+model TicketNote {
+  id             String   @id @default(uuid())
+  ticketId       String
+  ticket         Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  staffDiscordId String
+  staffUsername  String
+  content        String
+  createdAt      DateTime @default(now())
+
+  @@index([ticketId])
+}
+
+model TicketTranscript {
+  id                   String   @id @default(uuid())
+  ticketId             String   @unique
+  ticket               Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  htmlContent          String?
+  markdownContent      String
+  messageCount         Int
+  staffCount           Int
+  firstResponseMinutes Int?
+  durationMinutes      Int?
+  generatedAt          DateTime @default(now())
+}
+
+model KnowledgeBaseArticle {
+  id             String   @id @default(uuid())
+  title          String
+  slug           String   @unique
+  category       String   // VPS_CONNECTIVITY, SSH, FIREWALL, RESOURCES, OS_REINSTALL, GENERAL
+  content        String
+  tags           String   // JSON string array
+  keywords       String
+  isPublished    Boolean  @default(true)
+  usageCount     Int      @default(0)
+  helpfulCount   Int      @default(0)
+  unhelpfulCount Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([category])
+  @@index([slug])
+}
+
+model AiConfig {
+  id                             String   @id @default(uuid())
+  provider                       String   @default("LOCAL_FALLBACK") // GEMINI, OPENAI, ANTHROPIC, LOCAL_FALLBACK
+  modelName                      String   @default("gemini-1.5-flash")
+  temperature                    Float    @default(0.2)
+  maxTokens                      Int      @default(1024)
+  systemPrompt                   String
+  guardrailsEnabled              Boolean  @default(true)
+  autoTroubleshootSsh            Boolean  @default(true)
+  autoTroubleshootFirewall       Boolean  @default(true)
+  autoTroubleshootResources      Boolean  @default(true)
+  forbidServerCredentialRequests Boolean  @default(true)
+  monthlyTokenLimit              Int      @default(500000)
+  tokensUsedThisMonth            Int      @default(0)
+  fallbackEnabled                Boolean  @default(true)
+  createdAt                      DateTime @default(now())
+  updatedAt                      DateTime @updatedAt
+}
+
+model EmbedTemplate {
+  id                 String   @id @default(uuid())
+  name               String
+  description        String?
+  title              String?
+  embedDescription   String?
+  color              String   @default("#06B6D4")
+  authorName         String?
+  authorIconUrl      String?
+  authorUrl          String?
+  thumbnailUrl       String?
+  imageUrl           String?
+  footerText         String?
+  footerIconUrl      String?
+  hasTimestamp       Boolean  @default(true)
+  fields             String   // JSON string of fields
+  createdByDiscordId String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model ScheduledAnnouncement {
+  id              String    @id @default(uuid())
+  title           String
+  content         String
+  channelId       String
+  channelName     String?
+  embedData       String?   // JSON string
+  scheduledFor    DateTime
+  status          String    @default("PENDING") // PENDING, APPROVED, EXECUTED, CANCELLED, FAILED
+  approvedBy      String?
+  approvedAt      DateTime?
+  executedAt      DateTime?
+  executionResult String?
+  idempotencyKey  String    @unique
+  retryCount      Int       @default(0)
+  maxRetries      Int       @default(3)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status])
+  @@index([scheduledFor])
+}
+
+model HostingCalculatorConfig {
+  id                String   @id @default(uuid())
+  name              String   @default("VPS Standard Pricing")
+  basePrice         Float    @default(5.0)
+  cpuCorePrice      Float    @default(2.5)
+  ramGbPrice        Float    @default(1.5)
+  nvmeGbPrice       Float    @default(0.10)
+  bandwidthTbPrice  Float    @default(1.0)
+  ipv4Price         Float    @default(2.0)
+  ddosTierPrice     String   // JSON string: { "standard": 0, "advanced": 10, "enterprise": 35 }
+  backupTierPrice   String   // JSON string: { "none": 0, "weekly": 3, "daily": 7 }
+  formulaExpression String   @default("base + (cpu * cpuPrice) + (ram * ramPrice) + (nvme * nvmePrice) + (bw * bwPrice) + (ip * ipPrice) + ddos + backup")
+  currency          String   @default("USD")
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  actorDiscordId String
+  actorUsername  String
+  action         String
+  targetType     String
+  targetId       String?
+  details        String?  // JSON string
+  ipAddress      String?
+  createdAt      DateTime @default(now())
+
+  @@index([actorDiscordId])
+  @@index([action])
+  @@index([targetType])
+  @@index([createdAt])
+}
+
+model ScheduledJob {
+  id          String    @id @default(uuid())
+  jobType     String
+  payload     String    // JSON string
+  runAt       DateTime
+  status      String    @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED, CANCELLED
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3)
+  lastError   String?
+  lockedAt    DateTime?
+  lockedBy    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status])
+  @@index([runAt])
+}
