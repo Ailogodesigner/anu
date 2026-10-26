@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node node_modules/next/dist/bin/next dev -p 3005",
     "build": "node node_modules/next/dist/bin/next build",
-    "start": "node node_modules/next/dist/bin/next start -p 3005",
+    "start": "node node_modules/next/dist/bin/next start",
     "bot": "node node_modules/tsx/dist/cli.mjs src/bot/index.ts",
     "bot:dev": "node node_modules/tsx/dist/cli.mjs watch src/bot/index.ts",
     "prisma:generate": "node node_modules/prisma/build/index.js generate",
