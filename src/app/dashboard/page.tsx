@@ -126,7 +126,7 @@ export default function OverviewPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl bg-gradient-to-r from-card to-card-secondary border border-border">
         <div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
-            <span>Apex VPS Command Center</span>
+            <span>Cavrix Cloud Command Center</span>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-accent/15 border border-accent/30 text-accent font-mono">
               LIVE GATEWAY
             </span>

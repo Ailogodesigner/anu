@@ -195,7 +195,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
           { name: "Status", value: "`OPEN`", inline: true },
           { name: "Customer", value: `<@${interaction.user.id}>`, inline: true }
         )
-        .setFooter({ text: "Apex VPS Support • Never share passwords or private keys" })
+        .setFooter({ text: "Cavrix Cloud Support • Never share passwords or private keys" })
         .setTimestamp();
 
       const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -347,7 +347,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
         .setTitle(`✅ Ticket #${ticket.ticketNumber} Resolved`)
         .setDescription(`**Resolution:** ${summary}\n\nA persistent transcript has been generated and archived to the dashboard.`)
         .setColor(0x10b981)
-        .setFooter({ text: "Apex VPS Support • Thank you for choosing Apex Cloud" })
+        .setFooter({ text: "Cavrix Cloud Support • Thank you for choosing Cavrix Cloud" })
         .setTimestamp();
 
       await interaction.editReply({ embeds: [embed] });
@@ -393,7 +393,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
     }
 
     const embed = new EmbedBuilder()
-      .setTitle("⚡ Apex VPS Hosting Cost Calculator")
+      .setTitle("⚡ Cavrix Cloud Hosting Cost Calculator")
       .setDescription("Real-time quote calculated using verified enterprise hardware formulas.")
       .setColor(0x00f5d4)
       .addFields(
@@ -433,7 +433,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
       .setDescription(top.content.length > 2000 ? top.content.slice(0, 1950) + "..." : top.content)
       .setColor(0x06b6d4)
       .addFields({ name: "Category", value: `\`${top.category}\``, inline: true })
-      .setFooter({ text: "Apex VPS Documentation • Verified Solutions" })
+      .setFooter({ text: "Cavrix Cloud Documentation • Verified Solutions" })
       .setTimestamp();
 
     await interaction.editReply({ embeds: [embed] });
@@ -457,8 +457,8 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
     const uptimeHours = (process.uptime() / 3600).toFixed(1);
 
     const embed = new EmbedBuilder()
-      .setTitle("🛡️ Apex Bot & Support Gateway Status")
-      .setColor(0x06b6d4)
+      .setTitle("🛡️ Cavrix Bot & Support Gateway Status")
+      .setColor(0x0084ff)
       .addFields(
         { name: "Gateway Latency", value: `\`${interaction.client.ws.ping} ms\``, inline: true },
         { name: "Bot Uptime", value: `\`${uptimeHours} hours\``, inline: true },
@@ -467,7 +467,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
         { name: "Staff On Duty", value: `\`${activeStaff} Online\``, inline: true },
         { name: "AI Support Provider", value: `\`${aiConfig?.provider || "LOCAL_FALLBACK"}\``, inline: true }
       )
-      .setFooter({ text: "Apex VPS Management System v1.0.0" })
+      .setFooter({ text: "Cavrix Cloud Management System v1.0.0" })
       .setTimestamp();
 
     await interaction.editReply({ embeds: [embed] });
@@ -476,9 +476,9 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
 
   if (commandName === "help") {
     const embed = new EmbedBuilder()
-      .setTitle("Apex VPS Support Bot - User Guide")
-      .setDescription("Welcome to the Apex VPS technical support and hosting bot.")
-      .setColor(0x06b6d4)
+      .setTitle("Cavrix Cloud Support Bot - User Guide")
+      .setDescription("Welcome to the official Cavrix Cloud technical support and hosting bot.")
+      .setColor(0x0084ff)
       .addFields(
         { name: "/ticket create", value: "Open a categorized support ticket for connection, firewall, resource, or billing queries.", inline: false },
         { name: "/ticket escalate [reason]", value: "Request immediate handoff to human NetOps or Support Lead.", inline: false },
@@ -486,7 +486,7 @@ export async function handleSlashCommand(interaction: ChatInputCommandInteractio
         { name: "/kb [query]", value: "Search approved technical documentation (e.g. SSH, UFW, OOM, MTR).", inline: false },
         { name: "/status", value: "View real-time support queue and bot metrics.", inline: false }
       )
-      .setFooter({ text: "Apex Cloud Security Policy: Never share root passwords or private keys." });
+      .setFooter({ text: "Cavrix Cloud Security Policy: Never share root passwords or private keys." });
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
     return;

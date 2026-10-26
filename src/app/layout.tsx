@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Apex Cloud • VPS Hosting Discord Bot & Enterprise Management Dashboard",
-  description: "Enterprise management and AI-augmented technical support dashboard for VPS hosting Discord communities.",
+  title: "Cavrix Cloud • Enterprise Cloud Hosting & Management Console",
+  description: "Enterprise management, bot gateway, and AI-augmented technical support console for Cavrix Cloud.",
 };
 
 export default function RootLayout({

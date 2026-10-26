@@ -47,7 +47,7 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-card border border-border shadow-glow mb-4">
             <Server className="w-7 h-7 text-accent" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Apex VPS Cloud</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">Cavrix Cloud</h1>
           <p className="text-sm text-muted mt-1">Enterprise Bot & Support Management Console</p>
         </div>
 
@@ -73,7 +73,7 @@ export default function LoginPage() {
               <ArrowRight className="w-4 h-4 ml-auto opacity-70 group-hover:translate-x-0.5 transition" />
             </button>
             <p className="text-[11px] text-muted text-center">
-              Requires an authorized staff role on the official Apex VPS Discord server.
+              Requires an authorized staff role on the official Cavrix Cloud Discord server.
             </p>
           </div>
 

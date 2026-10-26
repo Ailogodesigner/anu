@@ -44,14 +44,14 @@ export default function EmbedBuilderPage() {
     "Mandatory hypervisor kernel upgrades and network switch firmware updates will be performed. Expected downtime per VPS is under 5 minutes."
   );
   const [color, setColor] = useState("#06B6D4");
-  const [authorName, setAuthorName] = useState("Apex Cloud Infrastructure");
+  const [authorName, setAuthorName] = useState("Cavrix Cloud Infrastructure");
   const [authorIconUrl, setAuthorIconUrl] = useState("");
-  const [footerText, setFooterText] = useState("Apex Cloud Operations • 99.99% SLA");
+  const [footerText, setFooterText] = useState("Cavrix Cloud Operations • 99.99% SLA");
   const [hasTimestamp, setHasTimestamp] = useState(true);
   const [fields, setFields] = useState<EmbedField[]>([
-    { name: "Node Range", value: "FRA-HYPER-04 to 09", inline: true },
-    { name: "Window", value: "Oct 28, 02:00 UTC", inline: true },
-    { name: "Live Status", value: "https://status.apex-vps.internal", inline: false },
+    { name: "Server Nodes", value: "FRA-CVRX-01 to 08", inline: true },
+    { name: "Status", value: "100% Operational", inline: true },
+    { name: "Official Portal", value: "https://cavrix.cloud", inline: false },
   ]);
 
   // Dispatch state
@@ -233,7 +233,7 @@ export default function EmbedBuilderPage() {
                     type="text"
                     value={authorName}
                     onChange={(e) => setAuthorName(e.target.value)}
-                    placeholder="e.g. Apex VPS Support"
+                    placeholder="e.g. Cavrix Cloud Support"
                     className="w-full p-2.5 rounded-lg bg-[#0B0F19] border border-border text-foreground focus:outline-none focus:border-accent"
                   />
                 </div>
@@ -414,7 +414,7 @@ export default function EmbedBuilderPage() {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-white text-sm">Apex Support Bot</span>
+                  <span className="font-semibold text-white text-sm">Cavrix Support Bot</span>
                   <span className="bg-[#5865F2] text-white text-[10px] font-bold px-1.5 py-0.2 rounded">BOT</span>
                   <span className="text-[11px] text-[#949BA4]">Today at 12:00 PM</span>
                 </div>

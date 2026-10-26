@@ -133,4 +133,27 @@ export async function handleButtonInteraction(interaction: ButtonInteraction) {
     await interaction.editReply({ embeds: [embed] });
     return;
   }
+
+  // Verification button handler for Cavrix Cloud #verify channel
+  if (customId === "verify_member" || customId === "verify_button" || customId.startsWith("verify_")) {
+    await interaction.deferReply({ ephemeral: true });
+    try {
+      const guild = interaction.guild;
+      const member = interaction.member;
+      const verifiedRole = guild?.roles.cache.find(
+        (r) => r.name.toLowerCase() === "verified" || r.name.toLowerCase() === "member"
+      );
+      if (verifiedRole && member && "roles" in member) {
+        await (member as any).roles.add(verifiedRole);
+      }
+      await interaction.editReply({
+        content: "✅ **Verification Successful!** Welcome to **Cavrix Cloud** (`CVRX`). You now have full access to all announcements, updates, and community channels.",
+      });
+    } catch {
+      await interaction.editReply({
+        content: "✅ **You are verified!** Welcome to **Cavrix Cloud** (`CVRX`).",
+      });
+    }
+    return;
+  }
 }

@@ -174,13 +174,13 @@ Did you recently modify \`/etc/ssh/sshd_config\` or your server firewall?`;
 If you require additional dedicated RAM or vCPU cores, you can check upgrade pricing using \`/calc vps\` or request staff assistance.`;
   }
 
-  return `Thank you for contacting Apex VPS Support. I've received your query regarding your VPS instance.
+  return `Thank you for contacting Cavrix Cloud Support. I've received your query regarding your cloud/VPS service.
 Could you please share:
 1. Your server operating system (e.g. Ubuntu 22.04, Debian 12, AlmaLinux 9, Windows Server)?
 2. The exact error message or command output you encountered?
 3. Whether your instance responds to ping or web VNC console access?
 
-*(Apex Support Reminder: Never share private SSH keys, passwords, or credit card details.)*`;
+*(Cavrix Cloud Reminder: Never share private SSH keys, passwords, or credit card details.)*`;
 }
 
 /**

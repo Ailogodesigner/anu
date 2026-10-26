@@ -17,7 +17,7 @@ export async function GET() {
         modelName: "gemini-1.5-flash",
         temperature: 0.2,
         maxTokens: 1024,
-        systemPrompt: "You are the official AI Technical Support Specialist for Apex VPS Hosting.",
+        systemPrompt: "You are the official AI Technical Support Specialist for Cavrix Cloud.",
       },
     });
   }

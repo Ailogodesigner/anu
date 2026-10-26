@@ -25,7 +25,7 @@ client.once(Events.ClientReady, async (readyClient) => {
   setBotClient(readyClient);
 
   readyClient.user.setPresence({
-    activities: [{ name: "Apex VPS Support • /ticket", type: ActivityType.Watching }],
+    activities: [{ name: "Cavrix Cloud • /ticket", type: ActivityType.Watching }],
     status: "online",
   });
 
@@ -147,7 +147,7 @@ client.on(Events.MessageCreate, async (message) => {
         ticketId: ticket.id,
         reason: aiRes.escalationReason || "Automated escalation triggered by customer message",
         actorDiscordId: "AI_ENGINE",
-        actorUsername: "Apex AI Assistant",
+        actorUsername: "Cavrix AI Assistant",
         isAiTriggered: true,
       });
 
@@ -161,7 +161,7 @@ client.on(Events.MessageCreate, async (message) => {
         data: {
           ticketId: ticket.id,
           senderDiscordId: client.user?.id || "BOT",
-          senderUsername: "Apex AI Assistant",
+          senderUsername: "Cavrix AI Assistant",
           isStaff: false,
           isBot: true,
           isAi: true,
@@ -177,7 +177,7 @@ client.on(Events.MessageCreate, async (message) => {
         data: {
           ticketId: ticket.id,
           senderDiscordId: client.user?.id || "BOT",
-          senderUsername: "Apex AI Assistant",
+          senderUsername: "Cavrix AI Assistant",
           isStaff: false,
           isBot: true,
           isAi: true,

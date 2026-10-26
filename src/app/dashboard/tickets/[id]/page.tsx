@@ -397,7 +397,7 @@ export default function TicketDetailPage() {
                 className="w-full p-3 rounded-lg bg-[#0B0F19] border border-border text-xs text-foreground placeholder:text-muted focus:outline-none focus:border-accent"
               />
               <div className="flex items-center justify-between">
-                <span className="text-[11px] text-muted">Apex VPS Cloud &bull; Verified Staff Dispatch</span>
+                <span className="text-[11px] text-muted">Cavrix Cloud &bull; Verified Staff Dispatch</span>
                 <button
                   type="submit"
                   disabled={sendingReply || !replyContent.trim()}

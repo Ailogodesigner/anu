@@ -6,7 +6,7 @@ export async function GET() {
   return NextResponse.json(
     {
       status: "healthy",
-      service: "Apex VPS Discord Bot & Dashboard",
+      service: "Cavrix Cloud Discord Bot & Dashboard",
       uptime: Math.round(process.uptime()),
       timestamp: new Date().toISOString(),
     },

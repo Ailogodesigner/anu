@@ -5,19 +5,19 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 Seeding VPS Hosting Bot & Dashboard database...");
 
-  // 1. Initial Staff Members
+  // 1. Initial Staff Members (Matching Cavrix Cloud Discord Roles)
   const adminStaff = await prisma.user.upsert({
     where: { discordId: "100000000000000001" },
     update: {},
     create: {
       discordId: "100000000000000001",
-      username: "Alex_Admin",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=128&h=128&fit=crop&crop=faces",
+      username: "FaaizXD_Founder",
+      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=128&h=128&fit=crop&crop=faces",
       role: "ADMIN",
       status: "ONLINE",
-      activeTicketsCount: 2,
-      totalResolvedTickets: 148,
-      avgRating: 4.9,
+      activeTicketsCount: 1,
+      totalResolvedTickets: 240,
+      avgRating: 5.0,
       lastActiveAt: new Date(),
     },
   });
@@ -27,7 +27,7 @@ async function main() {
     update: {},
     create: {
       discordId: "100000000000000002",
-      username: "Sarah_SupportLead",
+      username: "Shivam_Manager",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=128&h=128&fit=crop&crop=faces",
       role: "SUPPORT_LEAD",
       status: "ONLINE",
@@ -43,13 +43,13 @@ async function main() {
     update: {},
     create: {
       discordId: "100000000000000003",
-      username: "Marcus_NetOps",
+      username: "PurpleGamerz_TrialStaff",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=128&h=128&fit=crop&crop=faces",
       role: "SUPPORT_AGENT",
-      status: "BUSY",
-      activeTicketsCount: 4,
-      totalResolvedTickets: 89,
-      avgRating: 4.8,
+      status: "ONLINE",
+      activeTicketsCount: 2,
+      totalResolvedTickets: 110,
+      avgRating: 4.85,
       lastActiveAt: new Date(),
     },
   });
@@ -60,7 +60,7 @@ async function main() {
     update: {},
     create: {
       guildId: "123456789012345678",
-      guildName: "Apex VPS Hosting Infrastructure",
+      guildName: "Cavrix Cloud",
       ticketCategoryId: "990000000000000001",
       transcriptChannelId: "990000000000000002",
       auditLogChannelId: "990000000000000003",
@@ -237,7 +237,7 @@ Review memory-hungry daemons using \`htop\` or resize your VPS instance via our 
         modelName: "gemini-1.5-flash",
         temperature: 0.2,
         maxTokens: 1024,
-        systemPrompt: `You are the official AI Technical Support Specialist for Apex VPS Hosting.
+        systemPrompt: `You are the official AI Technical Support Specialist for Cavrix Cloud.
 Your mission is to provide accurate, concise, and helpful troubleshooting for VPS hosting customers.
 
 GUARDRAILS:
@@ -290,6 +290,27 @@ GUARDRAILS:
 
   // 7. Visual Embed Templates
   await prisma.embedTemplate.upsert({
+    where: { id: "tpl-cavrix-verify-001" },
+    update: {},
+    create: {
+      id: "tpl-cavrix-verify-001",
+      name: "Cavrix Cloud Verification Panel",
+      description: "Official server verification embed matching # 🔒-VERIFY-HERE",
+      title: "Welcome to Cavrix Cloud",
+      embedDescription: "This server requires you to verify yourself to get access to other channels, you can simply verify by clicking on the verify button.",
+      color: "#0084FF",
+      authorName: "Security",
+      footerText: "Cavrix Cloud Security System • Click Verify Below",
+      hasTimestamp: true,
+      fields: JSON.stringify([
+        { name: "Server", value: "Cavrix Cloud (`CVRX`)", inline: true },
+        { name: "Status", value: "Protected • 24/7 Online", inline: true },
+        { name: "Access", value: "Click [Verify] below to unlock channels", inline: false },
+      ]),
+    },
+  });
+
+  await prisma.embedTemplate.upsert({
     where: { id: "tpl-maintenance-001" },
     update: {},
     create: {
@@ -298,16 +319,16 @@ GUARDRAILS:
       description: "Notify users of kernel upgrades and node reboot maintenance windows",
       title: "🛠️ Scheduled Maintenance Notice - Frankfurt DC02",
       embedDescription: "We will be performing mandatory hypervisor kernel patching and network switch firmware updates. Expected downtime per VPS is under 5 minutes.",
-      color: "#06B6D4",
-      authorName: "Apex VPS Infrastructure Team",
+      color: "#0084FF",
+      authorName: "Cavrix Cloud Infrastructure",
       authorIconUrl: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=64&h=64&fit=crop",
-      footerText: "Apex Cloud Operations • SLA Protected",
+      footerText: "Cavrix Cloud Operations • SLA Protected",
       hasTimestamp: true,
       fields: JSON.stringify([
-        { name: "Node Range", value: "FRA-HYPER-04 through FRA-HYPER-09", inline: true },
+        { name: "Node Range", value: "FRA-CVRX-01 through FRA-CVRX-08", inline: true },
         { name: "Maintenance Window", value: "Oct 28, 02:00 - 04:00 UTC", inline: true },
         { name: "Expected Impact", value: "Brief warm reboot (approx 120s)", inline: true },
-        { name: "Live Status Page", value: "https://status.apex-vps.internal", inline: false },
+        { name: "Live Status Page", value: "https://status.cavrix.cloud", inline: false },
       ]),
     },
   });
@@ -319,10 +340,10 @@ GUARDRAILS:
       id: "tpl-welcome-guide-002",
       name: "VPS Getting Started Guide",
       description: "Embed sent to newly provisioned VPS owners",
-      title: "🚀 Welcome to Apex VPS Cloud",
+      title: "🚀 Welcome to Cavrix Cloud",
       embedDescription: "Your enterprise KVM instance is provisioned and ready for SSH connection. Follow these best security practices to protect your instance.",
-      color: "#00F5D4",
-      authorName: "Apex Onboarding Team",
+      color: "#00A3FF",
+      authorName: "Cavrix Onboarding Team",
       footerText: "Need assistance? Click Open Ticket below.",
       hasTimestamp: true,
       fields: JSON.stringify([
@@ -361,7 +382,7 @@ GUARDRAILS:
           },
           {
             senderDiscordId: "999999999999999999",
-            senderUsername: "Apex AI Assistant",
+            senderUsername: "Cavrix AI Assistant",
             isStaff: false,
             isBot: true,
             isAi: true,
@@ -415,7 +436,7 @@ GUARDRAILS:
           },
           {
             senderDiscordId: "999999999999999999",
-            senderUsername: "Apex AI Assistant",
+            senderUsername: "Cavrix AI Assistant",
             isStaff: false,
             isBot: true,
             isAi: true,

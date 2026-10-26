@@ -14,7 +14,7 @@ export async function GET() {
     guildConfig = await prisma.guildConfig.create({
       data: {
         guildId: process.env.DISCORD_GUILD_ID || "123456789012345678",
-        guildName: "Apex VPS Hosting Infrastructure",
+        guildName: "Cavrix Cloud",
       },
     });
   }

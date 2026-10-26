@@ -42,7 +42,7 @@ export async function generateTicketTranscript(ticketId: string) {
   const durationMinutes = Math.max(1, Math.round(durationMs / 60000));
 
   // 1. Build Markdown transcript
-  let markdown = `# Apex VPS Support Ticket Transcript\n\n`;
+  let markdown = `# Cavrix Cloud Support Ticket Transcript\n\n`;
   markdown += `**Ticket Number:** #${ticket.ticketNumber}\n`;
   markdown += `**Title:** ${ticket.title}\n`;
   markdown += `**Category:** ${ticket.category.name}\n`;
@@ -72,7 +72,7 @@ export async function generateTicketTranscript(ticketId: string) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ticket #${ticket.ticketNumber} Transcript - Apex VPS Support</title>
+  <title>Ticket #${ticket.ticketNumber} Transcript - Cavrix Cloud Support</title>
   <style>
     body { background-color: #0B0F19; color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 32px 16px; }
     .container { max-width: 860px; margin: 0 auto; }
@@ -98,7 +98,7 @@ export async function generateTicketTranscript(ticketId: string) {
 <body>
   <div class="container">
     <div class="header">
-      <h1>Apex VPS Support Transcript #${ticket.ticketNumber}</h1>
+      <h1>Cavrix Cloud Support Transcript #${ticket.ticketNumber}</h1>
       <p style="margin: 0; color: #94A3B8;">${ticket.title}</p>
       <div class="meta-grid">
         <div class="meta-item">Category: <strong>${ticket.category.name}</strong></div>
@@ -142,7 +142,7 @@ export async function generateTicketTranscript(ticketId: string) {
   html += `
     </div>
     <div class="footer">
-      Generated automatically by Apex VPS Management Bot &bull; Confidential Support Transcript
+      Generated automatically by Cavrix Cloud Management Bot &bull; Confidential Support Transcript
     </div>
   </div>
 </body>

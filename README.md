@@ -1,6 +1,6 @@
-# Apex VPS Hosting Discord Bot & Enterprise Management Dashboard
+# Cavrix Cloud Discord Bot & Enterprise Management Dashboard
 
-An enterprise-grade Discord management and technical support bot paired with an executive web dashboard built specifically for VPS hosting providers and cloud infrastructure operators.
+An enterprise-grade Discord management and technical support bot paired with an executive web dashboard built specifically for Cavrix Cloud VPS hosting and infrastructure operations.
 
 Built strictly according to specifications:
 1. **Discord Management & Support Bot**: Powered by Node.js, TypeScript, discord.js v14, persistent ticket channels, button & modal interactions, slash commands, and an AI diagnostic assistant with human escalation.

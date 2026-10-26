@@ -118,12 +118,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
           <div>
             <div className="text-sm font-bold tracking-tight text-foreground flex items-center gap-1.5">
-              <span>APEX</span>
+              <span>CAVRIX</span>
               <span className="text-accent text-[11px] font-mono px-1.5 py-0.5 rounded bg-accent/10 border border-accent/20">
-                VPS BOT
+                CVRX CLOUD
               </span>
             </div>
-            <div className="text-[11px] text-muted">Enterprise Console</div>
+            <div className="text-[11px] text-muted">Cloud & Discord Console</div>
           </div>
         </div>
 
@@ -270,7 +270,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="font-bold text-sm text-foreground">APEX VPS CONSOLE</div>
+                <div className="font-bold text-sm text-foreground">CAVRIX CLOUD CONSOLE</div>
                 <button onClick={() => setMobileOpen(false)} className="p-1 text-muted">
                   <X className="w-5 h-5" />
                 </button>
