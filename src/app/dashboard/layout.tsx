@@ -50,20 +50,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<UserProfile | null>(null);
+  const [authChecking, setAuthChecking] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [roleSwitcherOpen, setRoleSwitcherOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/auth/me")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Auth request failed");
+        return res.json();
+      })
       .then((data) => {
         if (data.authenticated && data.user) {
           setUser(data.user);
+          setAuthChecking(false);
         } else {
           router.push("/login");
         }
       })
-      .catch(() => router.push("/login"));
+      .catch(() => {
+        router.push("/login");
+      });
   }, [router]);
 
   const handleRoleSwitch = async (newRole: "ADMIN" | "SUPPORT_LEAD" | "SUPPORT_AGENT" | "VIEWER") => {
@@ -88,6 +95,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/login");
   };
+
+  if (authChecking || !user) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-[#07090E]">
+        <div className="flex flex-col items-center gap-3 text-xs text-muted">
+          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <span className="font-mono text-muted">Verifying staff console session...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

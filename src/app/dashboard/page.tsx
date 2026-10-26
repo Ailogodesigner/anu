@@ -68,18 +68,24 @@ export default function OverviewPage() {
 
   useEffect(() => {
     fetch("/api/stats/overview")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load overview data");
+        return res.json();
+      })
       .then((resData) => {
-        setData(resData);
-        setLoading(false);
+        if (resData && resData.metrics && resData.systemHealth) {
+          setData(resData);
+        }
       })
       .catch((err) => {
         console.error("Overview fetch error:", err);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  if (loading || !data) {
+  if (loading || !data || !data.metrics || !data.systemHealth) {
     return (
       <div className="space-y-6 animate-pulse">
         <div className="h-8 w-64 bg-card rounded"></div>
@@ -92,7 +98,27 @@ export default function OverviewPage() {
     );
   }
 
-  const { metrics, systemHealth, recentTickets, recentAudits } = data;
+  const metrics = data.metrics || {
+    totalTickets: 0,
+    activeTickets: 0,
+    awaitingStaffTickets: 0,
+    resolvedTickets: 0,
+    escalationRate: 0,
+    avgResponseTime: 0,
+    activeStaffCount: 0,
+    totalStaffCount: 0,
+    pendingJobsCount: 0,
+  };
+  const systemHealth = data.systemHealth || {
+    botStatus: "ONLINE",
+    memoryUsageMb: 0,
+    uptimeSeconds: 0,
+    aiProvider: "N/A",
+    tokensUsedThisMonth: 0,
+    monthlyTokenLimit: 500000,
+  };
+  const recentTickets = data.recentTickets || [];
+  const recentAudits = data.recentAudits || [];
 
   return (
     <div className="space-y-8">

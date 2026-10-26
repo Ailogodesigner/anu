@@ -303,18 +303,18 @@ export default function CalculatorsPage() {
               REAL-TIME HOSTING ESTIMATE
             </div>
 
-            {quote?.isValid ? (
+            {quote?.isValid && quote?.itemized ? (
               <div className="space-y-4">
                 <div className="flex items-baseline justify-between border-b border-border pb-4">
                   <div>
                     <span className="text-3xl font-bold tracking-tight text-foreground font-mono">
-                      ${quote.monthlyPrice.toFixed(2)}
+                      ${quote.monthlyPrice?.toFixed(2) ?? "0.00"}
                     </span>
                     <span className="text-xs text-muted"> / month</span>
                   </div>
                   <div className="text-right">
                     <span className="text-sm font-semibold text-accent font-mono">
-                      ${quote.yearlyPrice.toFixed(2)} / yr
+                      ${quote.yearlyPrice?.toFixed(2) ?? "0.00"} / yr
                     </span>
                     <div className="text-[10px] text-emerald-400 font-mono">Includes 10% Prepay Discount</div>
                   </div>
@@ -323,35 +323,35 @@ export default function CalculatorsPage() {
                 <div className="space-y-2 text-xs divide-y divide-border/50">
                   <div className="flex justify-between pt-1.5 text-muted">
                     <span>Base Instance & KVM Virtualization</span>
-                    <span className="font-mono text-foreground">${quote.itemized.base.toFixed(2)}</span>
+                    <span className="font-mono text-foreground">${quote.itemized.base?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>{quote.itemized.cpu.count} vCPU Cores (@ ${config.cpuCorePrice}/core)</span>
-                    <span className="font-mono text-foreground">${quote.itemized.cpu.total.toFixed(2)}</span>
+                    <span>{quote.itemized.cpu?.count ?? 0} vCPU Cores (@ ${config.cpuCorePrice}/core)</span>
+                    <span className="font-mono text-foreground">${quote.itemized.cpu?.total?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>{quote.itemized.ram.count} GB Dedicated RAM (@ ${config.ramGbPrice}/GB)</span>
-                    <span className="font-mono text-foreground">${quote.itemized.ram.total.toFixed(2)}</span>
+                    <span>{quote.itemized.ram?.count ?? 0} GB Dedicated RAM (@ ${config.ramGbPrice}/GB)</span>
+                    <span className="font-mono text-foreground">${quote.itemized.ram?.total?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>{quote.itemized.nvme.count} GB NVMe SSD (@ ${config.nvmeGbPrice}/GB)</span>
-                    <span className="font-mono text-foreground">${quote.itemized.nvme.total.toFixed(2)}</span>
+                    <span>{quote.itemized.nvme?.count ?? 0} GB NVMe SSD (@ ${config.nvmeGbPrice}/GB)</span>
+                    <span className="font-mono text-foreground">${quote.itemized.nvme?.total?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>{quote.itemized.bandwidth.count} TB Transit (@ ${config.bandwidthTbPrice}/TB)</span>
-                    <span className="font-mono text-foreground">${quote.itemized.bandwidth.total.toFixed(2)}</span>
+                    <span>{quote.itemized.bandwidth?.count ?? 0} TB Transit (@ ${config.bandwidthTbPrice}/TB)</span>
+                    <span className="font-mono text-foreground">${quote.itemized.bandwidth?.total?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>{quote.itemized.ipv4.count} IPv4 Address (@ ${config.ipv4Price}/IP)</span>
-                    <span className="font-mono text-foreground">${quote.itemized.ipv4.total.toFixed(2)}</span>
+                    <span>{quote.itemized.ipv4?.count ?? 0} IPv4 Address (@ ${config.ipv4Price}/IP)</span>
+                    <span className="font-mono text-foreground">${quote.itemized.ipv4?.total?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>DDoS Defense ({quote.itemized.ddos.tier.toUpperCase()})</span>
-                    <span className="font-mono text-foreground">${quote.itemized.ddos.cost.toFixed(2)}</span>
+                    <span>DDoS Defense ({quote.itemized.ddos?.tier?.toUpperCase() ?? "STANDARD"})</span>
+                    <span className="font-mono text-foreground">${quote.itemized.ddos?.cost?.toFixed(2) ?? "0.00"}</span>
                   </div>
                   <div className="flex justify-between pt-1.5 text-muted">
-                    <span>Snapshots ({quote.itemized.backup.tier.toUpperCase()})</span>
-                    <span className="font-mono text-foreground">${quote.itemized.backup.cost.toFixed(2)}</span>
+                    <span>Snapshots ({quote.itemized.backup?.tier?.toUpperCase() ?? "NONE"})</span>
+                    <span className="font-mono text-foreground">${quote.itemized.backup?.cost?.toFixed(2) ?? "0.00"}</span>
                   </div>
                 </div>
               </div>

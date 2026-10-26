@@ -52,12 +52,14 @@ export default function AuditAnalyticsPage() {
       if (search) query.set("search", search);
 
       const [logsRes, analyticsRes] = await Promise.all([
-        fetch(`/api/audit-logs?${query.toString()}`).then((r) => r.json()),
-        fetch("/api/analytics").then((r) => r.json()),
+        fetch(`/api/audit-logs?${query.toString()}`).then((r) => r.ok ? r.json() : { logs: [] }).catch(() => ({ logs: [] })),
+        fetch("/api/analytics").then((r) => r.ok ? r.json() : null).catch(() => null),
       ]);
 
-      setLogs(logsRes.logs || []);
-      setAnalytics(analyticsRes);
+      setLogs(logsRes?.logs || []);
+      if (analyticsRes && analyticsRes.csat && analyticsRes.statusStats) {
+        setAnalytics(analyticsRes);
+      }
     } catch (err) {
       console.error("Error fetching audit/analytics:", err);
     } finally {
@@ -198,7 +200,7 @@ export default function AuditAnalyticsPage() {
         </div>
       ) : (
         /* Analytics Tab */
-        analytics && (
+        analytics && analytics.csat && analytics.statusStats && (
           <div className="space-y-6">
             {/* Top Metric Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -229,11 +229,34 @@ export default function TicketDetailPage() {
     }
   };
 
-  if (loading || !ticket) {
+  if (loading) {
     return (
       <div className="p-8 text-center text-xs text-muted flex items-center justify-center gap-2">
         <RefreshCw className="w-4 h-4 animate-spin text-accent" />
         <span>Loading ticket conversation...</span>
+      </div>
+    );
+  }
+
+  if (!ticket) {
+    return (
+      <div className="p-8 max-w-md mx-auto text-center space-y-4 my-8">
+        <div className="w-12 h-12 rounded-xl bg-danger/10 border border-danger/20 text-danger flex items-center justify-center mx-auto">
+          <AlertTriangle className="w-6 h-6" />
+        </div>
+        <div className="space-y-1">
+          <h2 className="text-sm font-bold text-foreground">Ticket Record Not Found</h2>
+          <p className="text-xs text-muted">
+            The requested ticket identifier does not exist or has been permanently archived.
+          </p>
+        </div>
+        <Link
+          href="/dashboard/tickets"
+          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-accent hover:bg-accent-hover text-black font-semibold text-xs transition shadow-glow"
+        >
+          <ChevronLeft className="w-3.5 h-3.5" />
+          <span>Return to Queue</span>
+        </Link>
       </div>
     );
   }
