@@ -5,6 +5,7 @@ const nextConfig = {
     domains: ["cdn.discordapp.com", "images.unsplash.com"],
   },
   experimental: {
+    instrumentationHook: true,
     serverComponentsExternalPackages: ["@prisma/client", "discord.js"],
   },
 };
