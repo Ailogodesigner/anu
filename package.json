@@ -5,7 +5,7 @@
   "description": "Premium VPS Hosting Discord Bot & Enterprise Management Dashboard",
   "scripts": {
     "dev": "node node_modules/next/dist/bin/next dev -p 3005",
-    "build": "node node_modules/next/dist/bin/next build",
+    "build": "node node_modules/prisma/build/index.js db push --accept-data-loss && node node_modules/tsx/dist/cli.mjs prisma/seed.ts && node node_modules/next/dist/bin/next build",
     "start": "node node_modules/next/dist/bin/next start",
     "bot": "node node_modules/tsx/dist/cli.mjs src/bot/index.ts",
     "bot:dev": "node node_modules/tsx/dist/cli.mjs watch src/bot/index.ts",
